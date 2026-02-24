@@ -1,53 +1,88 @@
 # DBC-SDDiP
 
-A research codebase for stochastic dual dynamic programming with disjunctive cuts and cutting-plane-tree variants.
+Codebase for stochastic dual dynamic programming with disjunctive strengthening (DBC/iDBC) and cutting-plane-tree (CPT) variants.
 
-Note: this repository intentionally excludes experimental results and datasets.
+This public repository is **code-only**:
+- Included: source code, experiment configs, notebooks, docs.
+- Excluded: generated results and binary datasets (`*.jld2`).
 
-## Repository structure
+## 1. Requirements
 
-- `src/multistage_SCUC`: multistage SCUC model and SDDP/SDDiP/SDDPL implementations.
-- `src/sslp`: two-stage SSLP model and cut-generation variants.
-- `src/multistage_generation_expansion`: multistage generation expansion model.
-- `src/common`: shared utilities (for example, branching policy selection).
-- `experiments`: standardized experiment configs and entrypoints.
-- `docs`: design notes and architecture documents.
+- Julia `1.11.x`
+- Gurobi + valid license
+- macOS/Linux shell
 
-## Experiment entrypoints
-
-Configuration reference: `docs/config_reference.md`  
-Run guide: `docs/run_new_experiments.md`
-
-Run SCUC with default config:
+Install dependencies:
 
 ```bash
-julia --project experiments/scuc/run_experiment.jl experiments/scuc/configs/default.jl
+julia --project=. -e 'using Pkg; Pkg.instantiate()'
 ```
 
-Run SSLP with default config:
+## 2. Repository layout
+
+- `src/multistage_SCUC`: multistage SCUC models and SDDP/SDDiP implementations
+- `src/multistage_generation_expansion`: GEP models and algorithms
+- `src/sslp`: SSLP models and algorithms
+- `src/common`: shared runtime/branching utilities
+- `experiments`: experiment configs + run entrypoints
+- `experiments/plotting/plot_results.jl`: unified plotting script for saved runs
+- `notebooks`: interactive quick-run and paper-suite notebooks
+- `docs`: curated notes and algorithm documentation
+
+## 3. Data expectations (code-only release)
+
+Runtime scripts load prebuilt `.jld2` files from these paths:
+
+- SCUC:
+  - `src/multistage_SCUC/experiment_<case>/initialStateInfo.jld2`
+  - `src/multistage_SCUC/experiment_<case>/stage(<T>)real(<R>)/{indexSets,paramOPF,paramDemand,scenarioTree}.jld2`
+- GEP:
+  - `src/multistage_generation_expansion/testData/stage(<T>)real(<R>)/{stageDataList,Ω,binaryInfo,probList}.jld2`
+- SSLP:
+  - `src/sslp/testData/J<J>-I<I>-Ω<Omega>/{stageData,randomVariables}.jld2`
+
+If these files are missing, use your private dataset bundle or regenerate data with your internal pipeline.
+
+## 4. Run experiments
+
+SCUC:
 
 ```bash
-julia --project experiments/sslp/run_experiment.jl experiments/sslp/configs/default.jl
+julia --project=. experiments/scuc/run_experiment.jl experiments/scuc/configs/default.jl
 ```
 
-Run generation expansion with default config:
+GEP:
 
 ```bash
-julia --project experiments/generation_expansion/run_experiment.jl experiments/generation_expansion/configs/default.jl
+julia --project=. experiments/generation_expansion/run_experiment.jl experiments/generation_expansion/configs/default.jl
 ```
 
-Dry-run (configuration and data loading only):
+SSLP:
 
 ```bash
-julia --project experiments/scuc/run_experiment.jl experiments/scuc/configs/default.jl --dry-run
+julia --project=. experiments/sslp/run_experiment.jl experiments/sslp/configs/default.jl
 ```
 
-Notebook workflow: `notebooks/experiment_workflow.ipynb`
+Dry-run (config + orchestration path, no solve):
 
-## Entry points
+```bash
+julia --project=. experiments/scuc/run_experiment.jl experiments/scuc/configs/default.jl --dry-run
+```
 
-Use the experiment runners directly:
+## 5. Plot saved results
 
-- `experiments/scuc/run_experiment.jl`
-- `experiments/sslp/run_experiment.jl`
-- `experiments/generation_expansion/run_experiment.jl`
+Example:
+
+```bash
+julia --project=. experiments/plotting/plot_results.jl \
+  --project scuc \
+  --dataset-filter 'case=case_RTS_GMLC__T=6__R=5' \
+  --run-filter 'cut=DBC|cut=iDBC' \
+  --format png
+```
+
+Outputs are written to `results/figures/<project>/<dataset>/`.
+
+## 6. License
+
+MIT License (see `LICENSE`).
