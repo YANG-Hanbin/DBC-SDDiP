@@ -1,0 +1,2 @@
+# 忽略 testData 目录下的所有文件
+src/testData/

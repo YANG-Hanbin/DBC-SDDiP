@@ -1,0 +1,20 @@
+# macOS / editor
+.DS_Store
+.vscode/
+
+# Julia
+*.ji
+
+# Runtime outputs
+results/
+logs/
+output/
+outputs/
+
+# Datasets and generated data snapshots
+**/data/
+**/data/**
+
+# Notebook temp files
+.ipynb_checkpoints/
+notebooks/tmp_*.jl
