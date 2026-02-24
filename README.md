@@ -2,10 +2,6 @@
 
 Codebase for stochastic dual dynamic programming with disjunctive strengthening (DBC/iDBC) and cutting-plane-tree (CPT) variants.
 
-This public repository is **code-only**:
-- Included: source code, experiment configs, notebooks, docs.
-- Excluded: generated results and binary datasets (`*.jld2`).
-
 ## 1. Requirements
 
 - Julia `1.11.x`
@@ -29,19 +25,19 @@ julia --project=. -e 'using Pkg; Pkg.instantiate()'
 - `notebooks`: interactive quick-run and paper-suite notebooks
 - `docs`: curated notes and algorithm documentation
 
-## 3. Data expectations (code-only release)
+## 3. Included test datasets
 
-Runtime scripts load prebuilt `.jld2` files from these paths:
+The repository already includes test datasets in these paths:
 
 - SCUC:
-  - `src/multistage_SCUC/experiment_<case>/initialStateInfo.jld2`
-  - `src/multistage_SCUC/experiment_<case>/stage(<T>)real(<R>)/{indexSets,paramOPF,paramDemand,scenarioTree}.jld2`
+  - `src/multistage_SCUC/data/`
+  - `src/multistage_SCUC/experiment_case_RTS_GMLC/`
 - GEP:
-  - `src/multistage_generation_expansion/testData/stage(<T>)real(<R>)/{stageDataList,Ω,binaryInfo,probList}.jld2`
+  - `src/multistage_generation_expansion/testData/`
 - SSLP:
-  - `src/sslp/testData/J<J>-I<I>-Ω<Omega>/{stageData,randomVariables}.jld2`
+  - `src/sslp/testData/`
 
-If these files are missing, use your private dataset bundle or regenerate data with your internal pipeline.
+With these datasets present, default experiment configs can run directly.
 
 ## 4. Run experiments
 

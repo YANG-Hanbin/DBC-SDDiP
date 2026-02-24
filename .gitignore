@@ -11,15 +11,6 @@ logs/
 output/
 outputs/
 
-# Datasets and binary snapshots
-*.jld2
-**/data/
-**/data/**
-**/testData/
-**/testData/**
-src/multistage_SCUC/experiment_case_RTS_GMLC/
-src/multistage_SCUC/experiment_case_RTS_GMLC/**
-
 # Notebook temp files
 .ipynb_checkpoints/
 notebooks/tmp_*.jl
