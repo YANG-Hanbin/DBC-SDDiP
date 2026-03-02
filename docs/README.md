@@ -1,15 +1,21 @@
-# Documentation Index
+# Curated Documentation (Current Codebase)
 
-This repository now keeps only curated, current documentation under `docs/curated/`.
+This folder contains the active technical documentation.
 
-## Start here
+## Files
 
-1. `docs/curated/paper_code_alignment.md`
-2. `docs/curated/alg3_sddp_walkthrough.md`
-3. `docs/curated/parameter_handbook.md`
+1. `paper_code_alignment.md`
+   - Formal alignment check between paper Algorithm 1/2/3 and the current code.
+2. `alg3_sddp_walkthrough.md`
+   - Code-level walkthrough for Algorithm 3 (surrogate-Delta copy split) and SDDP components.
+3. `parameter_handbook.md`
+   - Parameter meaning, aliases, and safe combinations for all three examples.
+4. `alg3_experiment_matrix.md`
+   - 5-iteration DBC/iDBC validation matrix and runnable commands for SCUC/SSLP/GEP.
 
-## Purpose
+## Reading order
 
-- `paper_code_alignment.md`: direct check of paper Algorithm 1/2/3 versus current implementation.
-- `alg3_sddp_walkthrough.md`: code walkthrough of SDDP + CPT + copy-split flow.
-- `parameter_handbook.md`: unified parameter semantics and configuration guidance.
+1. `paper_code_alignment.md`
+2. `alg3_sddp_walkthrough.md`
+3. `parameter_handbook.md`
+4. `alg3_experiment_matrix.md`

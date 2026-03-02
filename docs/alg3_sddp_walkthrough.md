@@ -12,7 +12,7 @@ The focus is exact implementation components and control flow.
 
 ## 1. What Algorithm 3 means in code
 
-Paper intent (your description):
+Paper intent:
 
 1. Standard CPT originally splits only on original mixed-integer variables.
 2. For copy variables `z_m`, compute surrogate Delta to detect when copy split is useful.
