@@ -28,7 +28,7 @@ EXPERIMENT_CONFIG = SslpExperimentConfig(
         ),
         normalization = :SNC,
         algorithm = :CPT,
-        idbc_warm_pass = false,
+        idbc_warm_pass = true,
         inherit_disjunctive_cuts = true,
         enforce_binary_copies = true,
         logger_save = true,
@@ -44,7 +44,7 @@ EXPERIMENT_CONFIG = SslpExperimentConfig(
     ),
     sweep = SslpSweepConfig(
         # omegas = Int[100, 200],
-        omegas = Int[100],
+        omegas = Int[200],
         problem_sizes = Tuple{Int, Int}[(5, 15), (10, 20), (10, 35), (15, 25), (15, 30)],
         base_cuts = Symbol[],
         mdc_iters = Int[],

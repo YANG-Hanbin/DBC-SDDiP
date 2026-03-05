@@ -200,6 +200,13 @@ function backwardPass(
     runtime_param = resolve_sslp_runtime_params(local_param)
     cut_selection = runtime_param.cut_selection
     disjunction_iteration_limit = runtime_param.disjunction_iteration_limit
+    
+    inherit_disjunctive_cuts = runtime_param.inherit_disjunctive_cuts
+    existing_cut_keys = if inherit_disjunctive_cuts
+        Set(keys(local_backward_info_list[scenario_index][:cut_expression]))
+    else
+        Set()
+    end
 
     if disjunction_iteration_limit < 0 
         ## dynamically control the number of disjunctions
@@ -307,8 +314,18 @@ function backwardPass(
         remove_nonanticipativity_constraint(local_backward_info_list[scenario_index]);
     end
 
+    new_cut_collection = Dict()
+    if inherit_disjunctive_cuts
+        scenario_cut_expression = local_backward_info_list[scenario_index][:cut_expression]
+        for (key, cut) in scenario_cut_expression
+            if !(key in existing_cut_keys)
+                new_cut_collection[key] = cut
+            end
+        end
+    end
+
     return (
         backward_info = backward_info, 
-        cut_collection = local_backward_info_list[scenario_index][:cut_expression]
+        cut_collection = new_cut_collection,
     )
 end
